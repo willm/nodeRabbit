@@ -1,0 +1,11 @@
+{
+	"name": "nodeRabbit",
+	"version": "0.0.1",
+	"author": "Will Munn <willmunn@hotmail.com>",
+	"licenses": [
+		"MIT"
+	],
+	"dependencies": {
+		"amqp": "latest"
+	}
+}
