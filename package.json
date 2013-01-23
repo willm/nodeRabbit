@@ -6,6 +6,6 @@
 		"MIT"
 	],
 	"dependencies": {
-		"amqp": "latest"
+		"amqp": "0.1.4"
 	}
 }
