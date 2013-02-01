@@ -1,12 +1,17 @@
 var spawn = require('child_process').spawn,
 	config = require('./config.json'),
-	path = require('path');
+	path = require('path')
+	senderNode = require('./sender_node');
 
-var sendError = function(){
-	console.log('oh no');
+var sendError = function(err){
+	senderNode.sendMessage('decoding error ' + err);
 }
 
-var decodeFlac = function(inputFile){
+var sendAssetReady = function(msg){
+	console.log('asset ready! ' + msg);
+}
+
+var decodeFlac = function(inputFile, success, error){
 	var err ='';
 	var ffmpeg = spawn(config.path_to_ffmpeg,
 		['-y',
@@ -15,12 +20,11 @@ var decodeFlac = function(inputFile){
 		inputFile.replace('.flac', '.wav')]);
 
 	ffmpeg.on('exit', function(code){
-		console.log(err);
 		if(code === 0){
-			console.log('success !!');
+			success(inputFile);
 		}
 		else{
-			sendError();
+			error(err);
 		}
 	});
 	
@@ -31,8 +35,9 @@ var decodeFlac = function(inputFile){
 }
 
 exports.handleAssetReceived = function(msg,cb){
-	if(path.extname(msg.inputFile) === '.flac')
-		decodeFlac(msg.inputFile);	
+	if(path.extname(msg.inputFile) === '.flac'){
+		decodeFlac(msg.inputFile, sendAssetReady, sendError);
+	}
 	if(cb)
 		cb();
 };
