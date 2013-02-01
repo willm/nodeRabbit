@@ -1,8 +1,9 @@
 var handler = require('../encoding-handler'),
-	fs = require('fs');
+	fs = require('fs'),
+	path = require('path');
 
 describe('encoding-handler', function(){
-	var outputFile = '../b.wav';
+	var outputFile = path.join('..','b.wav');
 	beforeEach(function(){
 		fs.exists(outputFile, function(exists){
 			if(exists){
