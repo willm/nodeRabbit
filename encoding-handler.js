@@ -1,4 +1,5 @@
 var spawn = require('child_process').spawn,
+	config = require('./config.json'),
 	path = require('path');
 
 var sendError = function(){
@@ -7,7 +8,7 @@ var sendError = function(){
 
 var decodeFlac = function(inputFile){
 	var err ='';
-	var ffmpeg = spawn('/usr/bin/ffmpeg', 
+	var ffmpeg = spawn(config.path_to_ffmpeg,
 		['-y',
 		'-i',
 		inputFile, 

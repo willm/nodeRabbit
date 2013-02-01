@@ -1,0 +1,4 @@
+{
+	"asset_root_path": "/srv/data/files",
+	"path_to_ffmpeg": "/usr/bin/ffmpeg"
+}

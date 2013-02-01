@@ -11,7 +11,7 @@ describe('encoding-handler', function(){
 		});
 	});
 
-	it('should be true', function(){
+	it('should decode flac files', function(){
 		handler.handleAssetReceived({inputFile:'b.flac'},function(){
 			fs.exists(outputFile, function(exists){
 				expect(exists).toBe(true);
