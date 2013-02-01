@@ -8,7 +8,7 @@ var sendError = function(err){
 }
 
 var sendAssetReady = function(msg){
-	console.log('asset ready! ' + msg);
+	senderNode.sendMessage('asset ready! ' + msg);
 }
 
 var decodeFlac = function(inputFile, success, error){
@@ -35,9 +35,15 @@ var decodeFlac = function(inputFile, success, error){
 }
 
 exports.handleAssetReceived = function(msg,cb){
+	var callback = function(){
+		if(cb)
+			cb();
+	};
 	if(path.extname(msg.inputFile) === '.flac'){
 		decodeFlac(msg.inputFile, sendAssetReady, sendError);
+		callback();
+		return;
 	}
-	if(cb)
-		cb();
+	sendAssetReady(msg);
+	callback();
 };
